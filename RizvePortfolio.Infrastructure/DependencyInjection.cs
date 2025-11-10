@@ -3,6 +3,7 @@ using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using RizvePortfolio.Application.Abstractions;
+using RizvePortfolio.Application.Services;
 using RizvePortfolio.Infrastructure.Identity;
 using RizvePortfolio.Infrastructure.Persistence;
 using RizvePortfolio.Infrastructure.Services;
@@ -42,6 +43,8 @@ public static class DependencyInjection
         .AddRoles<IdentityRole>()
         .AddEntityFrameworkStores<AppDbContext>();
 
+        services.AddHttpContextAccessor();
+
         // Repository registrations
         services.AddScoped(typeof(IRepository<>), typeof(Repository<>));
         services.AddScoped<IUnitOfWork, UnitOfWork>();
@@ -52,6 +55,8 @@ public static class DependencyInjection
 
         // File storage
         services.AddSingleton<IFileStorage, FileStorageService>();
+            services.AddScoped<ICvService, CvService>();
+            services.AddScoped<IVisitorService, VisitorService>();
 
         return services;
     }

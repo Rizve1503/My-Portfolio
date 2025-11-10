@@ -1,9 +1,11 @@
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.DependencyInjection;
 using RizvePortfolio.Application;
+using RizvePortfolio.Application.Services;
 using RizvePortfolio.Infrastructure;
 using RizvePortfolio.Infrastructure.Persistence;
 using RizvePortfolio.Infrastructure.Services;
+using RizvePortfolio.WebApi.Middleware;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -13,6 +15,7 @@ builder.Services.AddSwaggerGen();
 // Application & Infrastructure DI
 builder.Services.AddApplicationServices();
 builder.Services.AddInfrastructure(builder.Configuration);
+builder.Services.AddScoped<ICvService, CvService>();
 builder.Services.AddControllers();
 
 // Add authentication/authorization
@@ -54,6 +57,7 @@ app.UseHttpsRedirection();
 app.UseStaticFiles();
 
 app.UseAuthentication();
+app.UseMiddleware<VisitorTrackingMiddleware>();
 app.UseAuthorization();
 
 app.MapControllers();

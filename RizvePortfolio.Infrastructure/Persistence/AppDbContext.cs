@@ -53,6 +53,9 @@ public class AppDbContext(DbContextOptions<AppDbContext> options)
             b.HasKey(x => x.Id);
             b.Property(x => x.FileName).HasMaxLength(255).IsRequired();
             b.Property(x => x.FilePath).HasMaxLength(500).IsRequired();
+               b.Property(x => x.UploadedBy).HasMaxLength(200).IsRequired();
+               b.Property(x => x.UploadedAt).IsRequired();
+               b.Property(x => x.IsActive).IsRequired();
         });
 
         builder.Entity<CvDownload>(b =>
@@ -62,10 +65,9 @@ public class AppDbContext(DbContextOptions<AppDbContext> options)
                 .WithMany(x => x.CvDownloads)
                 .HasForeignKey(x => x.CvVersionId)
                 .OnDelete(DeleteBehavior.Restrict);
-            b.HasOne(x => x.Visitor)
-                .WithMany(x => x.CvDownloads)
-                .HasForeignKey(x => x.VisitorId)
-                .OnDelete(DeleteBehavior.Restrict);
+               b.Property(x => x.IpHash).HasMaxLength(64).IsRequired();
+               b.Property(x => x.UserAgent).HasMaxLength(512);
+               b.Property(x => x.DownloadedAt).IsRequired();
         });
 
         builder.Entity<Project>(b =>

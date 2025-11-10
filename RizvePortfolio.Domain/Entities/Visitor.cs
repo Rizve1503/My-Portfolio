@@ -8,7 +8,4 @@ public class Visitor
     public string? Referrer { get; set; }
     public string? UserAgent { get; set; }
     public DateTime CreatedAt { get; set; } = DateTime.UtcNow;
-
-    // Navigation
-    public ICollection<CvDownload> CvDownloads { get; set; } = new List<CvDownload>();
 }

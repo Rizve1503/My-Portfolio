@@ -1,6 +1,5 @@
-﻿namespace RizvePortfolio.Application;
+namespace RizvePortfolio.Application;
 
 public class Class1
 {
-
 }
