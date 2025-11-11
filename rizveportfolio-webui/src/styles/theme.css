@@ -1,0 +1,12 @@
+:root {
+  --background-dark: #0B0D0F;
+  --background-card: #111418;
+  --accent: #10B981;
+  --accent-hover: rgba(16, 185, 129, 0.35);
+  --text-primary: #FFFFFF;
+  --text-secondary: #94A3B8;
+}
+
+html {
+  transition: background-color 0.3s ease, color 0.3s ease;
+}
